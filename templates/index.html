@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Substitution Cipher</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="outer-wrapper">
+        <div class="container">
+            <h1>Substitution Cipher</h1>
+            <form method="POST">
+                <!-- Plaintext Section -->
+                <div class="section">
+                    <h2>Plaintext</h2>
+                    <textarea name="text" required>{{ text if text else '' }}</textarea>
+                </div>
+
+                <!-- Mode & Key Section -->
+                <div class="section" id="modeSection">
+                    <h2>Mode</h2>
+                    <div class="mode-options">
+                        <input type="radio" id="encrypt" name="mode" value="e" {% if mode=='e' or not mode %}checked{% endif %}>
+                        <label for="encrypt">Encrypt</label>
+                        <input type="radio" id="decrypt" name="mode" value="d" {% if mode=='d' %}checked{% endif %}>
+                        <label for="decrypt">Decrypt</label>
+                    </div>
+                    <div class="key-row">
+                        <label for="key">Key</label>
+                        <input type="number" name="key" id="key" value="{{ key if key else 0 }}" required>
+                    </div>
+                    <br>
+                    {% if error %}
+                        <p style="color: #ff6b6b; font-size: 18px; font-family: 'Arial', sans-serif; margin-bottom: 20px;">{{ error }}</p>
+                    {% endif %}
+                    <!-- Submit Button -->
+                    <input type="submit" value="Submit">
+                </div>
+
+                <!-- Ciphertext Section -->
+                <div class="section">
+                    <h2>Ciphertext</h2>
+                    <textarea readonly>{{ result }}</textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
